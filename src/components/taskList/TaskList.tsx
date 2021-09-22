@@ -1,12 +1,15 @@
 import { VFC } from 'react';
+import { useSelector } from 'react-redux';
+import { selectTask } from '../../features/task/taskSlice';
 import TaskItem from '../taskItem/TaskItem';
-import sampleData from './sampleData.json';
 import styles from './TaskList.module.scss';
 
 const TaskList: VFC = () => {
+  const tasks = useSelector(selectTask);
+
   return (
     <div className={styles.root}>
-      {sampleData.map((task) => (
+      {tasks.map((task) => (
         <TaskItem key={task.id} task={task} />
       ))}
     </div>
