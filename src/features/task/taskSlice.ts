@@ -26,7 +26,7 @@ export const taskSlice = createSlice({
         title: action.payload,
         completed: false,
       };
-      state.tasks = [...state.tasks, newTask];
+      state.tasks = [newTask, ...state.tasks];
     },
   },
 });
