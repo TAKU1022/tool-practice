@@ -1,6 +1,12 @@
-import { Checkbox } from '@material-ui/core';
+import {
+  Checkbox,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from '@material-ui/core';
 import { Delete, Edit, EventNote } from '@material-ui/icons';
-import { VFC } from 'react';
+import { useState, VFC } from 'react';
 import styles from './TaskItem.module.scss';
 
 type Props = {
@@ -14,6 +20,16 @@ type Props = {
 const TaskItem: VFC<Props> = (props: Props) => {
   const { task } = props;
 
+  const [open, setOpen] = useState<boolean>(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div className={styles.root}>
       <div className={styles.title}>
@@ -26,10 +42,7 @@ const TaskItem: VFC<Props> = (props: Props) => {
           checked={task.completed}
           onClick={() => console.log(`check ${task.id}`)}
         />
-        <button
-          className={styles.edit_button}
-          onClick={() => console.log(`check ${task.id}`)}
-        >
+        <button className={styles.edit_button} onClick={handleClickOpen}>
           <Edit className={styles.icon} />
         </button>
         <button
@@ -39,6 +52,17 @@ const TaskItem: VFC<Props> = (props: Props) => {
           <Delete className={styles.icon} />
         </button>
       </div>
+
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Subscribe</DialogTitle>
+        <DialogContent>
+          <p>ダイアログ</p>
+        </DialogContent>
+        <DialogActions>
+          <button onClick={handleClose}>Cancel</button>
+          <button onClick={handleClose}>Subscribe</button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
